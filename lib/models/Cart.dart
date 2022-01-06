@@ -1,0 +1,16 @@
+// ignore_for_file: file_names
+
+// ignore: unused_import
+import 'package:flutter/material.dart';
+
+import 'Product.dart';
+
+class Cart {
+  final Product product;
+  final int numOfItem;
+
+  Cart({required this.product, required this.numOfItem});
+}
+
+// Demo data for our cart
+
