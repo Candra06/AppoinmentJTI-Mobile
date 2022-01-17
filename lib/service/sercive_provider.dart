@@ -22,9 +22,9 @@ class ServiceProvider with ChangeNotifier {
 
   Map<String, dynamic> get length => _length;
 
-  String get url => "http://${_ip}/Appointmentjti-1/api/";
+  String get url => "https://appointmentjti.waserdajaya.store/api/";
 
-  String get imageUrl => "http://${_ip}/Appointmentjti-1/assets/img/profile/";
+  String get imageUrl => "https://appointmentjti.waserdajaya.store/assets/img/profile/";
 
   Future<void> getIp() async {
     final SharedPreferences prefs = await _prefs;
@@ -35,12 +35,8 @@ class ServiceProvider with ChangeNotifier {
   Future<void> getChat() async {
     final SharedPreferences prefs = await _prefs;
     _data = [];
-    var hasilRespon = await http.post(Uri.parse(this.url + "chat"), body: {
-      'id': prefs.getString("id_user".toString())
-    }, headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Cookie': 'ci_session=ttrcome6mjbi616q28pcaol47908sjat'
-    });
+    var hasilRespon = await http.post(Uri.parse(this.url + "chat"),
+        body: {'id': prefs.getString("id_user".toString())}, headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'ci_session=ttrcome6mjbi616q28pcaol47908sjat'});
     if (hasilRespon.statusCode != 200) {
       try {
         _data = json.decode(hasilRespon.body)["data"];
@@ -53,8 +49,7 @@ class ServiceProvider with ChangeNotifier {
 
   Future<void> listChat({required String id}) async {
     _data = [];
-    var hasilRespon =
-        await http.post(Uri.parse(this.url + "chat/rechat"), body: {
+    var hasilRespon = await http.post(Uri.parse(this.url + "chat/rechat"), body: {
       'id': id,
     }, headers: {
       'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'
@@ -72,13 +67,8 @@ class ServiceProvider with ChangeNotifier {
   Future<void> postChat({required String id, required String message}) async {
     final SharedPreferences prefs = await _prefs;
 
-    var hasilRespon = await http.post(Uri.parse(this.url + "chat/send"), body: {
-      'id_chat': id,
-      'from_by': prefs.getString("id_user").toString(),
-      'message': message
-    }, headers: {
-      'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'
-    });
+    var hasilRespon = await http.post(Uri.parse(this.url + "chat/send"),
+        body: {'id_chat': id, 'from_by': prefs.getString("id_user").toString(), 'message': message}, headers: {'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'});
     if (hasilRespon.statusCode != 200) {
       try {
         _data = json.decode(hasilRespon.body)["data"];
@@ -93,12 +83,8 @@ class ServiceProvider with ChangeNotifier {
     final SharedPreferences prefs = await _prefs;
     _data = [];
 
-    var hasilRespon = await http.post(Uri.parse(this.url + "Request"), body: {
-      'id': prefs.getString("id_user").toString(),
-      'roleId': prefs.getString("id_role".toString())
-    }, headers: {
-      'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'
-    });
+    var hasilRespon = await http.post(Uri.parse(this.url + "Request"),
+        body: {'id': prefs.getString("id_user").toString(), 'roleId': prefs.getString("id_role".toString())}, headers: {'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'});
     if (hasilRespon.statusCode != 200) {
       try {
         _data = json.decode(hasilRespon.body)["data"];
@@ -124,10 +110,9 @@ class ServiceProvider with ChangeNotifier {
     // notifyListeners();
   }
 
-  Future<void> authentification(
-      {required String email, required String password}) async {
+  Future<void> authentification({required String email, required String password}) async {
     final SharedPreferences prefs = await _prefs;
-    print(_ip);
+
     var hasilRespon = await http.post(Uri.parse(this.url + "auth"), body: {
       'email': email,
       'password': password,
@@ -136,27 +121,20 @@ class ServiceProvider with ChangeNotifier {
       'Cookie': 'ci_session=j0rduujlvc2r8raudcpdo7kep0225dnq'
     });
     _status = json.decode(hasilRespon.body)["status"];
-
+    print(hasilRespon.body);
     if (hasilRespon.statusCode <= 201) {
       prefs.setString('email', json.decode(hasilRespon.body)["data"]["email"]);
-      prefs.setString(
-          'id_user', json.decode(hasilRespon.body)["data"]["id_user"]);
-      prefs.setString(
-          'id_role', json.decode(hasilRespon.body)["data"]["id_role"]);
+      prefs.setString('id_user', json.decode(hasilRespon.body)["data"]["id_user"]);
+      prefs.setString('id_role', json.decode(hasilRespon.body)["data"]["id_role"]);
       prefs.setString('image', json.decode(hasilRespon.body)["data"]["image"]);
     }
     notifyListeners();
   }
 
-  Future<void> postJadwal(
-      {required String title,
-      required String id,
-      String startDate = "",
-      String endDate = ""}) async {
+  Future<void> postJadwal({required String title, required String id, String startDate = "", String endDate = ""}) async {
     final SharedPreferences prefs = await _prefs;
 
-    var hasilRespon =
-        await http.post(Uri.parse(this.url + "jadwal/make"), body: {
+    var hasilRespon = await http.post(Uri.parse(this.url + "jadwal/make"), body: {
       'user': prefs.getString("id_user").toString(),
       'title': title,
       'start': startDate,
@@ -178,9 +156,7 @@ class ServiceProvider with ChangeNotifier {
     required String id,
     required String status,
   }) async {
-    var hasilRespon = await http.put(Uri.parse(this.url + "jadwal"),
-        body: {'id': id, 'status': status, 'message': 'kamu ${status}'},
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'});
+    var hasilRespon = await http.put(Uri.parse(this.url + "jadwal"), body: {'id': id, 'status': status, 'message': 'kamu ${status}'}, headers: {'Content-Type': 'application/x-www-form-urlencoded'});
 
     if (hasilRespon.statusCode != 200) {
       try {
@@ -191,14 +167,9 @@ class ServiceProvider with ChangeNotifier {
     }
   }
 
-  Future<void> postRequest(
-      {required String title,
-      required String dosen,
-      String startDate = "",
-      String endDate = ""}) async {
+  Future<void> postRequest({required String title, required String dosen, String startDate = "", String endDate = ""}) async {
     final SharedPreferences prefs = await _prefs;
-    var hasilRespon =
-        await http.post(Uri.parse(this.url + "request/make"), body: {
+    var hasilRespon = await http.post(Uri.parse(this.url + "request/make"), body: {
       'mahasiswa': prefs.getString("id_user").toString(),
       'dosen': dosen,
       'title': title,
@@ -218,9 +189,7 @@ class ServiceProvider with ChangeNotifier {
   }
 
   Future<void> getJumlah() async {
-    var hasilRespon = await http.post(Uri.parse(this.url + "jumlah"),
-        body: {},
-        headers: {'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'});
+    var hasilRespon = await http.post(Uri.parse(this.url + "jumlah"), body: {}, headers: {'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'});
     _status = json.decode(hasilRespon.body)["status"];
     _length = json.decode(hasilRespon.body)["data"];
     // print(hasilRespon.body);
