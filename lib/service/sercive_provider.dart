@@ -35,25 +35,30 @@ class ServiceProvider with ChangeNotifier {
   Future<void> getChat() async {
     final SharedPreferences prefs = await _prefs;
     _data = [];
-    var hasilRespon = await http.post(Uri.parse(this.url + "chat"),
+    http.Response hasilRespon = await http.post(Uri.parse(this.url + "chat"),
         body: {'id': prefs.getString("id_user".toString())}, headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'ci_session=ttrcome6mjbi616q28pcaol47908sjat'});
-    if (hasilRespon.statusCode != 200) {
-      try {
-        _data = json.decode(hasilRespon.body)["data"];
-      } catch (e) {
-        _data = [];
-      }
+    // print(hasilRespon.body);
+    if (hasilRespon.statusCode == 200) {
+      return _data = json.decode(hasilRespon.body)["data"];
     }
     notifyListeners();
+    // if (hasilRespon.statusCode != 200) {
+    //   try {
+    //     // print(data);
+    //   } catch (e) {
+    //     // return e.;
+    //   }
+    // }
   }
 
   Future<void> listChat({required String id}) async {
     _data = [];
-    var hasilRespon = await http.post(Uri.parse(this.url + "chat/rechat"), body: {
+    http.Response hasilRespon = await http.post(Uri.parse(this.url + "chat/rechat"), body: {
       'id': id,
     }, headers: {
       'Cookie': 'ci_session=hicugh25of2gedocb4b4hmrt4jkg7h81'
     });
+    print(hasilRespon.body);
     if (hasilRespon.statusCode != 200) {
       try {
         _data = json.decode(hasilRespon.body)["data"];

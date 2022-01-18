@@ -25,9 +25,7 @@ class ItemChat extends StatelessWidget {
       child: SizedBox(
         width: SizeConfig.screenWidth,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: getProportionateScreenWidth(10),
-              horizontal: getProportionateScreenWidth(25)),
+          padding: EdgeInsets.symmetric(vertical: getProportionateScreenWidth(10), horizontal: getProportionateScreenWidth(25)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -41,19 +39,15 @@ class ItemChat extends StatelessWidget {
                   //             "http://192.168.0.106/Appointmentjti-1/assets/img/profile/" +
                   //                 data['image']),
                   //   ),
-                  SizedBox(width: getProportionateScreenWidth(20)),
+                  // SizedBox(width: getProportionateScreenWidth(20)),
                   Text.rich(
                     TextSpan(
-                      text: "${data['update_time']}\n",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
+                      text: "${data['name']}\n",
+                      style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(
                           text: "${data['topic']}",
-                          style: const TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.w100),
+                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w100),
                         ),
                       ],
                     ),
@@ -62,10 +56,7 @@ class ItemChat extends StatelessWidget {
               ),
               Text(
                 "${data['update_time']}",
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
+                style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ],
           ),

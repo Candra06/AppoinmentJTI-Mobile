@@ -12,6 +12,8 @@ class ProfilePic extends StatelessWidget {
 
   final String image;
 
+  
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

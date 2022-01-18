@@ -21,7 +21,7 @@ class ChatScreens extends StatelessWidget {
           )
         ],
       ),
-      body: const Body(),
+      body: Body(),
     );
   }
 }
