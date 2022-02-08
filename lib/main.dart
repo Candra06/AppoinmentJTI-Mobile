@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: themeData(),
         // home: const SplashScreen(),
         onGenerateRoute: Routes.generateRoute,
-        initialRoute: Routes.HOME_MAHASISWA,
+        initialRoute: Routes.HOME_ADMIN,
         routes: routes,
       ),
     );

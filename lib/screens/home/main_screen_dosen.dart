@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class MainScreenDosen extends StatefulWidget {
   static String routeName = "/home_nav";
-  const MainScreenDosen({Key? key}) : super(key: key);
+  final String? index;
+  const MainScreenDosen({Key? key, this.index}) : super(key: key);
 
   @override
   State<MainScreenDosen> createState() => _MainScreenDosenState();

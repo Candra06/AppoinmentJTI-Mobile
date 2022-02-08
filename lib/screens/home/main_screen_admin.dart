@@ -1,22 +1,26 @@
 import 'package:appointment/screens/home/components/body.dart';
 import 'package:appointment/screens/jadwal/event_dosen.dart';
 import 'package:appointment/screens/jadwal/event_screen.dart';
+import 'package:appointment/screens/master/dosen/listDosen.dart';
+import 'package:appointment/screens/master/mahasiswa/listMahasiswa.dart';
+import 'package:appointment/screens/master/prodi/prodi.dart';
 import 'package:flutter/material.dart';
 
-class MainScreenDosen extends StatefulWidget {
+class MainScreenAdmin extends StatefulWidget {
   static String routeName = "/home_nav";
-  const MainScreenDosen({Key? key}) : super(key: key);
+  const MainScreenAdmin({Key? key}) : super(key: key);
 
   @override
-  State<MainScreenDosen> createState() => _MainScreenDosenState();
+  State<MainScreenAdmin> createState() => _MainScreenAdminState();
 }
 
-class _MainScreenDosenState extends State<MainScreenDosen> {
+class _MainScreenAdminState extends State<MainScreenAdmin> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    HomeBodyMahasiswa(),
-    EventScreenDosen(),
+    ListDosen(),
+    ListMahasiswa(),
+    ListProdi(),
     HomeBodyMahasiswa(),
   ];
 
@@ -36,11 +40,15 @@ class _MainScreenDosenState extends State<MainScreenDosen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            label: 'Jadwal Saya',
+            label: 'Dosen',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_outlined),
-            label: 'Event Dosen',
+            label: 'Mahasiswa',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_rounded),
+            label: 'Jurusan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
@@ -48,6 +56,8 @@ class _MainScreenDosenState extends State<MainScreenDosen> {
           ),
         ],
         currentIndex: _selectedIndex,
+        fixedColor: Colors.grey[450],
+        unselectedItemColor: Colors.grey[450],
         selectedItemColor: Colors.blue[900],
         onTap: _onItemTapped,
       ),

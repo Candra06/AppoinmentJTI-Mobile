@@ -22,7 +22,7 @@ class Warna {
 }
 
 class konstan {
-  TextFormField buildFormField(String? label, String? hint, TextEditingController? controller, TextInputType? type) {
+  TextFormField buildFormField(String? label, String? hint, TextEditingController? controller, TextInputType type) {
     return TextFormField(
       keyboardType: type,
       // onSaved: (newValue) => titel = newValue,
@@ -36,6 +36,23 @@ class konstan {
       ),
     );
   }
+
+  TextFormField buildFormPasswordField(String? label, String? hint, TextEditingController? controller, TextInputType type) {
+    return TextFormField(
+      keyboardType: type,
+      obscureText: true,
+      // onSaved: (newValue) => titel = newValue,
+
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hint,
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+    );
+  }
+
   TextFormField buildFormFieldMultiLine(String? label, String? hint, TextEditingController? controller, TextInputType? type) {
     return TextFormField(
       maxLines: 3,

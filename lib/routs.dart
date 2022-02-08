@@ -3,9 +3,13 @@ import 'package:appointment/screens/chat_view/chat_view_screens.dart';
 import 'package:appointment/screens/details/details_screen.dart';
 import 'package:appointment/screens/event/event_screen.dart';
 import 'package:appointment/screens/home/home_screen.dart';
+import 'package:appointment/screens/home/main_screen_admin.dart';
+import 'package:appointment/screens/home/main_screen_dosen.dart';
 import 'package:appointment/screens/home/main_screen_mahasiswa.dart';
 import 'package:appointment/screens/jadwal/components/detail_jadwal.dart';
 import 'package:appointment/screens/jadwal/jadwal_screen.dart';
+import 'package:appointment/screens/master/dosen/addDosen.dart';
+import 'package:appointment/screens/master/mahasiswa/addMahasiswa.dart';
 import 'package:appointment/screens/profil/profil_screen.dart';
 import 'package:appointment/screens/request/request_screen.dart';
 import 'package:appointment/screens/setting_ip/setting_ip_screens.dart';
@@ -19,7 +23,11 @@ class Routes {
   static const String LOGIN = '/login';
   static const String JADWAL_DOSEN = '/jadwal_dosen';
   static const String HOME_MAHASISWA = '/home_mahasiswa';
+  static const String HOME_DOSEN = '/home_dosen';
+  static const String HOME_ADMIN = '/home_admin';
   static const String DETAIL_JADWAL = '/detail_jadwal';
+  static const String ADD_MAHASISWA = '/add_mahasiswa';
+  static const String ADD_DOSEN = '/add_dosen';
 
   static Route<dynamic>? generateRoute(RouteSettings? settings) {
     switch (settings!.name) {
@@ -33,11 +41,31 @@ class Routes {
             builder: (_) => MainScreenMahasiswa(
                 // data: settings.arguments.toString(),
                 ));
+      case HOME_DOSEN:
+        return MaterialPageRoute(
+            builder: (_) => MainScreenMahasiswa(
+                // data: settings.arguments.toString(),
+                ));
+      case HOME_ADMIN:
+        return MaterialPageRoute(
+            builder: (_) => MainScreenAdmin(
+                // data: settings.arguments.toString(),
+                ));
       case DETAIL_JADWAL:
         return MaterialPageRoute(
             builder: (_) => DetailJadwal(
                   id: settings.arguments.toString(),
                   // data: settings.arguments.toString(),
+                ));
+      case ADD_MAHASISWA:
+        return MaterialPageRoute(
+            builder: (_) => FormMahasiswa(
+                // data: settings.arguments.toString(),
+                ));
+      case ADD_DOSEN:
+        return MaterialPageRoute(
+            builder: (_) => FormDosen(
+                // data: settings.arguments.toString(),
                 ));
       default:
         return MaterialPageRoute(
