@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -24,16 +23,16 @@ class IconBtnWithCounter extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(12)),
-            height: getProportionateScreenWidth(46),
-            width: getProportionateScreenWidth(46),
-            decoration: BoxDecoration(
-              color: kSecondaryColor.withOpacity(0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(svgSrc),
-          ),
+          // Container(
+          //   padding: EdgeInsets.all(getProportionateScreenWidth(12)),
+          //   height: getProportionateScreenWidth(46),
+          //   width: getProportionateScreenWidth(46),
+          //   decoration: BoxDecoration(
+          //     color: kSecondaryColor.withOpacity(0.1),
+          //     shape: BoxShape.circle,
+          //   ),
+          //   child: Icon(svgSrc),
+          // ),
           if (numOfItem != 0)
             Positioned(
               top: -3,

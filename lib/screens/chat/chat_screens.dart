@@ -15,11 +15,7 @@ class ChatScreens extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: SizeConfig.screenWidth! / 15,
-        actions: const [
-          TheHeader(
-            userSearchField: true,
-          )
-        ],
+        actions: const [TheHeader()],
       ),
       body: Body(),
     );

@@ -44,8 +44,7 @@ class _SettingIpFormState extends State<SettingIpForm> {
                 setState(() {
                   error.remove(kEmailNullError);
                 });
-              } else if (emailValidatorRegExp.hasMatch(value) &&
-                  error.contains(kInvalidEmailError)) {
+              } else if (emailValidatorRegExp.hasMatch(value) && error.contains(kInvalidEmailError)) {
                 setState(() {
                   error.remove(kInvalidEmailError);
                 });
@@ -78,12 +77,12 @@ class _SettingIpFormState extends State<SettingIpForm> {
           DefaultButton(
             text: "Continue",
             press: () {
-              if (_formKey.currentState!.validate()) {
-                // Lakukan Apa yang ingin aku lakukan
-                IpSetting().setIp(ipController.text);
-                _data.getIp();
-                Navigator.pushReplacementNamed(context, SignInScreen.routeName);
-              }
+              // if (_formKey.currentState!.validate()) {
+              //   // Lakukan Apa yang ingin aku lakukan
+              //   IpSetting().setIp(ipController.text);
+              //   _data.getIp();
+              //   Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+              // }
             },
           ),
           SizedBox(

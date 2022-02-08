@@ -5,22 +5,50 @@ import 'package:appointment/size_config.dart';
 
 import 'components/body.dart';
 
-class JadwalScreen extends StatelessWidget {
-  static String routeName = "/jadwal";
+class JadwalScreen extends StatefulWidget {
+  final String? data;
+  const JadwalScreen({Key? key, this.data}) : super(key: key);
+
+  @override
+  _JadwalScreenState createState() => _JadwalScreenState();
+}
+
+class _JadwalScreenState extends State<JadwalScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final DetailsArguments agrs =
-        ModalRoute.of(context)!.settings.arguments as DetailsArguments;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Membuat Jadwal"),
+        centerTitle: false,
+        title: const Text(
+          "Membuat Jadwal",
+          style: TextStyle(color: Colors.black),
+        ),
       ),
-      body: Body(product: agrs.product),
+      body: JadwalBody(),
     );
   }
 }
+
+// class JadwalScreen extends StatelessWidget {
+//   static String routeName = "/jadwal";
+//   @override
+//   Widget build(BuildContext context) {
+//     SizeConfig().init(context);
+
+//     return Scaffold(
+//       appBar: AppBar(
+//         centerTitle: false,
+//         title: const Text(
+//           "Membuat Jadwal",
+//           style: TextStyle(color: Colors.black),
+//         ),
+//       ),
+//       body: JadwalBody(),
+//     );
+//   }
+// }
 
 class DetailsArguments {
   final String product;

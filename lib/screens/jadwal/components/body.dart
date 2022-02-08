@@ -7,31 +7,30 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'jadwal_form.dart';
 
-class Body extends StatelessWidget {
-  final String product;
-
-  const Body({Key? key, required this.product}) : super(key: key);
+class JadwalBody extends StatelessWidget {
+  const JadwalBody({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight! * 0.04), // 4%
+                SizedBox(height: 16), // 4%
                 Text(
                   "Selesaikan detail mu atau kembali degan tombol kembali",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
                 ),
-                SizedBox(height: SizeConfig.screenHeight! * 0.08),
+                SizedBox(height: 16),
                 JadwalForm(
-                  product: product,
-                ),
+                    // product: product,
+                    ),
                 SizedBox(height: SizeConfig.screenHeight! * 0.04),
                 Text(
                   'Untuk menyimpan click simpan jika kamu sudah selesai',

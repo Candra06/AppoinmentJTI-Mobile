@@ -15,9 +15,7 @@ class RequestScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         actions: [
-          const TheHeader(
-            userSearchField: true,
-          ),
+          const TheHeader(),
         ],
         leadingWidth: SizeConfig.screenWidth! / 15,
       ),

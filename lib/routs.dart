@@ -3,6 +3,8 @@ import 'package:appointment/screens/chat_view/chat_view_screens.dart';
 import 'package:appointment/screens/details/details_screen.dart';
 import 'package:appointment/screens/event/event_screen.dart';
 import 'package:appointment/screens/home/home_screen.dart';
+import 'package:appointment/screens/home/main_screen_mahasiswa.dart';
+import 'package:appointment/screens/jadwal/components/detail_jadwal.dart';
 import 'package:appointment/screens/jadwal/jadwal_screen.dart';
 import 'package:appointment/screens/profil/profil_screen.dart';
 import 'package:appointment/screens/request/request_screen.dart';
@@ -11,6 +13,42 @@ import 'package:appointment/screens/sign_in/sign_in_screen.dart';
 import 'package:appointment/screens/splash/splash_screens.dart';
 import 'package:appointment/screens/user_view/user_view_screen.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
+class Routes {
+  static const String LOGIN = '/login';
+  static const String JADWAL_DOSEN = '/jadwal_dosen';
+  static const String HOME_MAHASISWA = '/home_mahasiswa';
+  static const String DETAIL_JADWAL = '/detail_jadwal';
+
+  static Route<dynamic>? generateRoute(RouteSettings? settings) {
+    switch (settings!.name) {
+      case JADWAL_DOSEN:
+        return MaterialPageRoute(
+            builder: (_) => JadwalScreen(
+                  data: settings.arguments.toString(),
+                ));
+      case HOME_MAHASISWA:
+        return MaterialPageRoute(
+            builder: (_) => MainScreenMahasiswa(
+                // data: settings.arguments.toString(),
+                ));
+      case DETAIL_JADWAL:
+        return MaterialPageRoute(
+            builder: (_) => DetailJadwal(
+                  id: settings.arguments.toString(),
+                  // data: settings.arguments.toString(),
+                ));
+      default:
+        return MaterialPageRoute(
+            builder: (_) => Scaffold(
+                  body: Center(
+                    child: Text('Page ${settings.name} not defined'),
+                  ),
+                ));
+    }
+  }
+}
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
@@ -24,5 +62,6 @@ final Map<String, WidgetBuilder> routes = {
   UserView.routeName: (context) => UserView(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
   EventScreen.routeName: (context) => EventScreen(),
-  JadwalScreen.routeName: (context) => JadwalScreen(),
+  // EventScreenDosen.routeName: (context) => EventScreenDosen(),
+  'jadwal_screen': (context) => JadwalScreen(),
 };

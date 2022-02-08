@@ -1,3 +1,4 @@
+import 'package:appointment/routs.dart';
 import 'package:appointment/screens/jadwal/jadwal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment/components/befault_button.dart';
@@ -58,7 +59,7 @@ class _BodyState extends State<Body> {
                                 text: "Buat Jadwal",
                                 press: () => Navigator.pushNamed(
                                   context,
-                                  JadwalScreen.routeName,
+                                 Routes.JADWAL_DOSEN,
                                   arguments: DetailsArguments(
                                     product: widget.product['id_user'],
                                   ),

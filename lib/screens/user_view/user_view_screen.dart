@@ -16,7 +16,6 @@ class UserView extends StatelessWidget {
       appBar: AppBar(
         actions: const [
           TheHeader(
-            userSearchField: true,
             titel: "Data User",
           )
         ],

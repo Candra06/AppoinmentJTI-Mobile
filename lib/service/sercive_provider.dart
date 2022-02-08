@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
 import 'dart:convert';
+import 'package:appointment/models/AuhtModel.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -25,12 +26,6 @@ class ServiceProvider with ChangeNotifier {
   String get url => "https://appointmentjti.waserdajaya.store/api/";
 
   String get imageUrl => "https://appointmentjti.waserdajaya.store/assets/img/profile/";
-
-  Future<void> getIp() async {
-    final SharedPreferences prefs = await _prefs;
-    _ip = prefs.getString('ip').toString();
-    notifyListeners();
-  }
 
   Future<void> getChat() async {
     final SharedPreferences prefs = await _prefs;
@@ -115,7 +110,7 @@ class ServiceProvider with ChangeNotifier {
     // notifyListeners();
   }
 
-  Future<void> authentification({required String email, required String password}) async {
+  Future<bool?> authentification({required String? email, required String? password}) async {
     final SharedPreferences prefs = await _prefs;
 
     var hasilRespon = await http.post(Uri.parse(this.url + "auth"), body: {
@@ -126,14 +121,16 @@ class ServiceProvider with ChangeNotifier {
       'Cookie': 'ci_session=j0rduujlvc2r8raudcpdo7kep0225dnq'
     });
     _status = json.decode(hasilRespon.body)["status"];
-    print(hasilRespon.body);
+    // print(hasilRespon.body);
     if (hasilRespon.statusCode <= 201) {
       prefs.setString('email', json.decode(hasilRespon.body)["data"]["email"]);
       prefs.setString('id_user', json.decode(hasilRespon.body)["data"]["id_user"]);
       prefs.setString('id_role', json.decode(hasilRespon.body)["data"]["id_role"]);
       prefs.setString('image', json.decode(hasilRespon.body)["data"]["image"]);
+      return true;
     }
     notifyListeners();
+    return false;
   }
 
   Future<void> postJadwal({required String title, required String id, String startDate = "", String endDate = ""}) async {

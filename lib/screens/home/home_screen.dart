@@ -1,10 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors
 
-import 'package:appointment/components/costume_bottom_navigation.dart';
-import 'package:appointment/components/the_header.dart';
+
+import 'package:appointment/routs.dart';
 import 'package:flutter/material.dart';
-import '../../enums.dart';
-import '../../size_config.dart';
 import 'components/body.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,21 +10,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    // SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: const TheHeader(
-          userSearchField: false,
-          titel: "Home",
+        centerTitle: false,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.JADWAL_DOSEN);
+              },
+              icon: Icon(Icons.add))
+        ],
+        title: Text(
+          'Jadwal Saya',
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.transparent,
-        leading: Container(),
-        leadingWidth: 0,
+        backgroundColor: Colors.white,
       ),
-      body: const Body(),
-      bottomNavigationBar: const CostumeBottomNavigationBar(
-        selectedMenu: MenuState.home,
-      ),
+      body: HomeBodyMahasiswa(),
     );
   }
 }

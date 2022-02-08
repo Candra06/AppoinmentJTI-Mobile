@@ -1,4 +1,6 @@
+import 'package:appointment/screens/event/event_screen.dart';
 import 'package:appointment/screens/home/home_screen.dart';
+import 'package:appointment/screens/jadwal/event_screen.dart';
 import 'package:appointment/screens/profil/profil_screen.dart';
 import 'package:appointment/screens/user_view/user_view_screen.dart';
 import 'package:flutter/material.dart';
@@ -36,42 +38,28 @@ class CostumeBottomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              onPressed: () => MenuState.home != selectedMenu
-                  ? Navigator.pushReplacementNamed(
-                      context, HomeScreen.routeName)
-                  : null,
+              onPressed: () => MenuState.home != selectedMenu ? Navigator.pushReplacementNamed(context, HomeScreen.routeName) : null,
               icon: Icon(
-                Icons.home_outlined,
-                color: MenuState.home == selectedMenu
-                    ? kPrimaryColor
-                    : inActiveIconColor,
+                Icons.calendar_today_rounded,
+                color: MenuState.home == selectedMenu ? kPrimaryColor : inActiveIconColor,
               ),
             ),
             // IconButton(
             //   onPressed: () {},
             //   icon: const Icon(Icons.explore),
             // ),
+            // IconButton(
+            //   onPressed: () => MenuState.event != selectedMenu ? Navigator.pushReplacementNamed(context, EventScreenDosen.routeName) : null,
+            //   icon: Icon(
+            //     Icons.groups_outlined,
+            //     color: MenuState.event == selectedMenu ? kPrimaryColor : inActiveIconColor,
+            //   ),
+            // ),
             IconButton(
-              onPressed: () => MenuState.user != selectedMenu
-                  ? Navigator.pushReplacementNamed(context, UserView.routeName)
-                  : null,
-              icon: Icon(
-                Icons.groups_outlined,
-                color: MenuState.user == selectedMenu
-                    ? kPrimaryColor
-                    : inActiveIconColor,
-              ),
-            ),
-            IconButton(
-              onPressed: () => MenuState.profile != selectedMenu
-                  ? Navigator.pushReplacementNamed(
-                      context, ProfilScreen.routeName)
-                  : null,
+              onPressed: () => MenuState.profile != selectedMenu ? Navigator.pushReplacementNamed(context, ProfilScreen.routeName) : null,
               icon: Icon(
                 Icons.person_outline,
-                color: MenuState.profile == selectedMenu
-                    ? kPrimaryColor
-                    : inActiveIconColor,
+                color: MenuState.profile == selectedMenu ? kPrimaryColor : inActiveIconColor,
               ),
             ),
           ],

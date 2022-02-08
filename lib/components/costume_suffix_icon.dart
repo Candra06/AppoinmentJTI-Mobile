@@ -5,9 +5,9 @@ import '../size_config.dart';
 class CostumeSuffixIcon extends StatelessWidget {
   const CostumeSuffixIcon({
     Key? key,
-    required this.svgIcon,
+    this.svgIcon,
   }) : super(key: key);
-  final IconData svgIcon;
+  final IconData? svgIcon;
 
   @override
   Widget build(BuildContext context) {

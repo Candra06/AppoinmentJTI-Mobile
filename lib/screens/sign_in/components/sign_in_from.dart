@@ -44,16 +44,32 @@ class _SignInFormState extends State<SignInForm> {
           ),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                var _log =
-                    _data.authentification(email: email, password: password);
-                if (_data.status == true) {
+                var _log = await _data.authentification(email: email, password: password);
+                print(_log);
+                if (_log == true) {
                   // _log.whenComplete(() => Navigator.pushReplacementNamed(
                   //     context, HomeScreen.routeName));
-                  Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-                  _log.onError((ex, stackTrace) => error.add("Fail Logins"));
+                  // _log.onError((ex, stackTrace) => error.add("Fail Logins"));
+                  setState(() {
+                    final snackBar = SnackBar(
+                      backgroundColor: Colors.blue,
+                      content: const Text('Login Berhasil'),
+                      // action: SnackBarAction(
+                      //   label: 'Oke',
+                      //   onPressed: () {
+                      //     // Some code to undo the change.
+                      //   },
+                      // ),
+                    );
+                    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar.
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  });
                 }
               }
             },
@@ -65,7 +81,7 @@ class _SignInFormState extends State<SignInForm> {
 
   TextFormField builPasswordFormField() {
     return TextFormField(
-      obscureText: false,
+      obscureText: true,
       onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
         if (value.isEmpty && error.contains(kPassNullError)) {
@@ -110,8 +126,7 @@ class _SignInFormState extends State<SignInForm> {
           setState(() {
             error.remove(kEmailNullError);
           });
-        } else if (emailValidatorRegExp.hasMatch(value) &&
-            error.contains(kInvalidEmailError)) {
+        } else if (emailValidatorRegExp.hasMatch(value) && error.contains(kInvalidEmailError)) {
           setState(() {
             error.remove(kInvalidEmailError);
           });
@@ -122,8 +137,7 @@ class _SignInFormState extends State<SignInForm> {
           setState(() {
             error.add(kEmailNullError);
           });
-        } else if (!emailValidatorRegExp.hasMatch(value) &&
-            !error.contains(kInvalidEmailError)) {
+        } else if (!emailValidatorRegExp.hasMatch(value) && !error.contains(kInvalidEmailError)) {
           setState(() {
             error.add(kInvalidEmailError);
           });

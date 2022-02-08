@@ -1,4 +1,5 @@
 import 'package:appointment/routs.dart';
+import 'package:appointment/screens/home/home_screen.dart';
 import 'package:appointment/screens/sign_in/sign_in_screen.dart';
 import 'package:appointment/service/sercive_provider.dart';
 import 'package:appointment/theme.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: themeData(),
         // home: const SplashScreen(),
-        initialRoute: SignInScreen.routeName,
+        onGenerateRoute: Routes.generateRoute,
+        initialRoute: Routes.HOME_MAHASISWA,
         routes: routes,
       ),
     );

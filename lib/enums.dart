@@ -1,1 +1,1 @@
-enum MenuState { home, user, profile, chat, jadwal }
+enum MenuState { home, user, profile, chat, jadwal , event}
