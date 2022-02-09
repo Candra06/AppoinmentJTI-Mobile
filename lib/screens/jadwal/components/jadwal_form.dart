@@ -25,7 +25,7 @@ class _JadwalFormState extends State<JadwalForm> {
   TextEditingController? endDate = TextEditingController();
   TextEditingController? txtJamMulai = TextEditingController();
   TextEditingController? txtJamSelesai = TextEditingController();
-  TextEditingController? title = TextEditingController();
+  TextEditingController title = TextEditingController();
   TextEditingController? startDate = TextEditingController();
   bool remember = false;
   final List<String> errors = [];
@@ -59,7 +59,7 @@ class _JadwalFormState extends State<JadwalForm> {
       key: _formKey,
       child: Column(
         children: [
-          konstan().buildFormField('Judul', 'Masukkan judul jadwal', title, TextInputType.text),
+          buildFormField('Judul', 'Masukkan judul jadwal', title, TextInputType.text),
           SizedBox(height: 10),
           selectDosen(),
           SizedBox(height: 10),

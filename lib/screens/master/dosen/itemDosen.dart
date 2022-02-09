@@ -1,9 +1,10 @@
+import 'package:appointment/models/userModel.dart';
 import 'package:appointment/routs.dart';
-import 'package:appointment/screens/details/components/config.dart';
 import 'package:flutter/material.dart';
 
 class ItemDosen extends StatefulWidget {
-  const ItemDosen({Key? key}) : super(key: key);
+  final UserModel? data;
+  const ItemDosen({Key? key, this.data}) : super(key: key);
 
   @override
   _ItemDosenState createState() => _ItemDosenState();
@@ -14,7 +15,7 @@ class _ItemDosenState extends State<ItemDosen> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, Routes.DETAIL_JADWAL, arguments: '1');
+        Navigator.pushNamed(context, Routes.DETAIL_DOSEN, arguments: widget.data!.idUser);
       },
       child: Card(
         child: Padding(
@@ -25,15 +26,15 @@ class _ItemDosenState extends State<ItemDosen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Nama Dosen', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(widget.data!.name!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   // Text('NIM'),
                 ],
               ),
               Text(
-                'Email',
+                widget.data!.email!,
                 style: TextStyle(color: Colors.grey),
               ),
-              Text('NIP'),
+              Text(widget.data!.nipNim!),
 
               // Text('Keterangan'),
               // Text('Lorem Ipsum'),

@@ -3,7 +3,11 @@
 import 'package:appointment/components/befault_button.dart';
 import 'package:appointment/components/form_error.dart';
 import 'package:appointment/screens/home/home_screen.dart';
+import 'package:appointment/screens/home/main_screen_admin.dart';
+import 'package:appointment/screens/home/main_screen_dosen.dart';
+import 'package:appointment/screens/home/main_screen_mahasiswa.dart';
 import 'package:appointment/service/sercive_provider.dart';
+import 'package:appointment/utill/preference.dart';
 import 'package:provider/src/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +52,7 @@ class _SignInFormState extends State<SignInForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 var _log = await _data.authentification(email: email, password: password);
+                String role = await Pref.getRole();
                 print(_log);
                 if (_log == true) {
                   // _log.whenComplete(() => Navigator.pushReplacementNamed(
@@ -64,7 +69,13 @@ class _SignInFormState extends State<SignInForm> {
                       //   },
                       // ),
                     );
-                    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                    if (role == '1') {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainScreenAdmin()));
+                    } else if (role == '2') {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainScreenDosen()));
+                    } else if (role == '3') {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => MainScreenMahasiswa()));
+                    }
 
                     // Find the ScaffoldMessenger in the widget tree
                     // and use it to show a SnackBar.

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:appointment/models/AuhtModel.dart';
+import 'package:appointment/utill/network.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class ServiceProvider with ChangeNotifier {
 
   Map<String, dynamic> get length => _length;
 
-  String get url => "https://appointmentjti.waserdajaya.store/api/";
+  String get url => "https://appointmentjti.waserdajaya.store/";
 
   String get imageUrl => "https://appointmentjti.waserdajaya.store/assets/img/profile/";
 
@@ -113,13 +114,14 @@ class ServiceProvider with ChangeNotifier {
   Future<bool?> authentification({required String? email, required String? password}) async {
     final SharedPreferences prefs = await _prefs;
 
-    var hasilRespon = await http.post(Uri.parse(this.url + "auth"), body: {
+    var hasilRespon = await http.post(Uri.parse(EndPoint.auth), body: {
       'email': email,
       'password': password,
     }, headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Cookie': 'ci_session=j0rduujlvc2r8raudcpdo7kep0225dnq'
     });
+    print(hasilRespon.body);
     _status = json.decode(hasilRespon.body)["status"];
     // print(hasilRespon.body);
     if (hasilRespon.statusCode <= 201) {

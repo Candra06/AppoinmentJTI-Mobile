@@ -1,6 +1,8 @@
+import 'package:appointment/models/prodiModel.dart';
 import 'package:appointment/routs.dart';
 import 'package:appointment/screens/master/mahasiswa/itemMahasiswa.dart';
 import 'package:appointment/screens/master/prodi/itemProdi.dart';
+import 'package:appointment/service/user_repository.dart';
 import 'package:flutter/material.dart';
 
 class ListProdi extends StatefulWidget {
@@ -11,6 +13,26 @@ class ListProdi extends StatefulWidget {
 }
 
 class _ListProdiState extends State<ListProdi> {
+   Future<List<ProdiModel>>? listProdi;
+  UserRepository repository = UserRepository();
+  bool load = true;
+
+  void getData() async {
+    setState(() {
+      load = true;
+    });
+    listProdi = repository.listProdi();
+
+    setState(() {
+      load = false;
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +52,31 @@ class _ListProdiState extends State<ListProdi> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        margin: EdgeInsets.all(16),
-        child: ListView.builder(itemBuilder: (BuildContext context, int i) {
-          return ItemProdi();
-        }),
-      ),
+      body: load
+          ? LinearProgressIndicator()
+          : FutureBuilder<List<ProdiModel>>(
+              future: listProdi,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return LinearProgressIndicator();
+                } else {
+                  return snapshot.hasData
+                      ? Container(
+                          margin: EdgeInsets.all(16),
+                          child: ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                return ItemProdi(
+                                  data: snapshot.data![i],
+                                );
+                              }),
+                        )
+                      : Center(
+                          child: Text('Tidak ada data prodi'),
+                        );
+                }
+              },
+            ),
     );
   }
 }

@@ -21,26 +21,28 @@ class Warna {
   final defaultDuration = Duration(milliseconds: 250);
 }
 
+Widget buildFormField(String? label, String? hint, TextEditingController controller, TextInputType type) {
+  return TextFormField(
+    keyboardType: type,
+    controller: controller,
+    // onSaved: (newValue) => titel = newValue,
+
+    decoration: InputDecoration(
+      labelText: label,
+      hintText: hint,
+      // If  you are using latest version of flutter then lable text and hint text shown like this
+      // if you r using flutter less then 1.20.* then maybe this is not working properly
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+    ),
+  );
+}
+
 class konstan {
-  TextFormField buildFormField(String? label, String? hint, TextEditingController? controller, TextInputType type) {
-    return TextFormField(
-      keyboardType: type,
-      // onSaved: (newValue) => titel = newValue,
-
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-      ),
-    );
-  }
-
-  TextFormField buildFormPasswordField(String? label, String? hint, TextEditingController? controller, TextInputType type) {
+  static Widget buildFormPasswordField(String? label, String? hint, TextEditingController? controller, TextInputType type) {
     return TextFormField(
       keyboardType: type,
       obscureText: true,
+      controller: controller,
       // onSaved: (newValue) => titel = newValue,
 
       decoration: InputDecoration(
@@ -53,10 +55,11 @@ class konstan {
     );
   }
 
-  TextFormField buildFormFieldMultiLine(String? label, String? hint, TextEditingController? controller, TextInputType? type) {
+  static Widget buildFormFieldMultiLine(String? label, String? hint, TextEditingController? controller, TextInputType? type) {
     return TextFormField(
       maxLines: 3,
       keyboardType: type,
+      controller: controller,
       // onSaved: (newValue) => titel = newValue,
 
       decoration: InputDecoration(

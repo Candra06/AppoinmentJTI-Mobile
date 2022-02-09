@@ -51,7 +51,7 @@ class _ModalBatalJadwalState extends State<ModalBatalJadwal> {
                 Divider(
                   height: 2,
                 ),
-                konstan().buildFormFieldMultiLine('Pesan', 'Masukkan alasan', txtAlasan, TextInputType.text),
+                konstan.buildFormFieldMultiLine('Pesan', 'Masukkan alasan', txtAlasan, TextInputType.text),
                 SizedBox(height: 8),
                 SizedBox(
                   height: 8,

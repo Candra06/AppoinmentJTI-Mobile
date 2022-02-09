@@ -1,9 +1,10 @@
+import 'package:appointment/models/userModel.dart';
 import 'package:appointment/routs.dart';
-import 'package:appointment/screens/details/components/config.dart';
 import 'package:flutter/material.dart';
 
 class ItemMahasiswa extends StatefulWidget {
-  const ItemMahasiswa({Key? key}) : super(key: key);
+  final UserModel? data;
+  const ItemMahasiswa({Key? key, this.data}) : super(key: key);
 
   @override
   _ItemMahasiswaState createState() => _ItemMahasiswaState();
@@ -14,7 +15,7 @@ class _ItemMahasiswaState extends State<ItemMahasiswa> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, Routes.DETAIL_JADWAL, arguments: '1');
+        Navigator.pushNamed(context, Routes.DETAIL_MAHASISWA, arguments: widget.data!.idUser);
       },
       child: Card(
         child: Padding(
@@ -25,14 +26,12 @@ class _ItemMahasiswaState extends State<ItemMahasiswa> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Nama Mahasiswa', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text('NIM'),
+                  Text(widget.data!.name!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(widget.data!.nipNim!),
                 ],
               ),
-              Text('Email'),
-              SizedBox(
-                height: 8,
-              ),
+              Text(widget.data!.email!),
+
               // Text('Keterangan'),
               // Text('Lorem Ipsum'),
               // SizedBox(

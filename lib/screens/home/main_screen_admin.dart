@@ -1,10 +1,9 @@
 import 'package:appointment/screens/home/components/body.dart';
-import 'package:appointment/screens/jadwal/event_dosen.dart';
-import 'package:appointment/screens/jadwal/event_screen.dart';
 import 'package:appointment/screens/master/dosen/listDosen.dart';
 import 'package:appointment/screens/master/mahasiswa/listMahasiswa.dart';
 import 'package:appointment/screens/master/prodi/prodi.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainScreenAdmin extends StatefulWidget {
   static String routeName = "/home_nav";
@@ -39,11 +38,11 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
+            icon: Icon(FontAwesomeIcons.chalkboardTeacher),
             label: 'Dosen',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today_outlined),
+            icon: Icon(FontAwesomeIcons.graduationCap),
             label: 'Mahasiswa',
           ),
           BottomNavigationBarItem(
@@ -56,8 +55,9 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
           ),
         ],
         currentIndex: _selectedIndex,
-        fixedColor: Colors.grey[450],
-        unselectedItemColor: Colors.grey[450],
+        // fixedColor: Colors.grey[450],
+        unselectedItemColor: Colors.black54,
+
         selectedItemColor: Colors.blue[900],
         onTap: _onItemTapped,
       ),

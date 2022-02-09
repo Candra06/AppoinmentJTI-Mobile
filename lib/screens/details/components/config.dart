@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Config {
   static Widget statusProspek(String status) {
@@ -27,5 +28,16 @@ class Config {
         );
         break;
     }
+  }
+
+  static alert(tipe, pesan) {
+    Fluttertoast.showToast(
+        msg: pesan,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2,
+        backgroundColor: (tipe == 1 ? Colors.green : Colors.red), // 1 untuk berhasil
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }

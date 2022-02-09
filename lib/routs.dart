@@ -9,7 +9,9 @@ import 'package:appointment/screens/home/main_screen_mahasiswa.dart';
 import 'package:appointment/screens/jadwal/components/detail_jadwal.dart';
 import 'package:appointment/screens/jadwal/jadwal_screen.dart';
 import 'package:appointment/screens/master/dosen/addDosen.dart';
+import 'package:appointment/screens/master/dosen/detailDosen.dart';
 import 'package:appointment/screens/master/mahasiswa/addMahasiswa.dart';
+import 'package:appointment/screens/master/mahasiswa/detailMahasiswa.dart';
 import 'package:appointment/screens/profil/profil_screen.dart';
 import 'package:appointment/screens/request/request_screen.dart';
 import 'package:appointment/screens/setting_ip/setting_ip_screens.dart';
@@ -26,6 +28,8 @@ class Routes {
   static const String HOME_DOSEN = '/home_dosen';
   static const String HOME_ADMIN = '/home_admin';
   static const String DETAIL_JADWAL = '/detail_jadwal';
+  static const String DETAIL_DOSEN = '/detail_dosen';
+  static const String DETAIL_MAHASISWA = '/detail_mahasiswa';
   static const String ADD_MAHASISWA = '/add_mahasiswa';
   static const String ADD_DOSEN = '/add_dosen';
 
@@ -35,6 +39,11 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => JadwalScreen(
                   data: settings.arguments.toString(),
+                ));
+      case LOGIN:
+        return MaterialPageRoute(
+            builder: (_) => SignInScreen(
+                // data: settings.arguments.toString(),
                 ));
       case HOME_MAHASISWA:
         return MaterialPageRoute(
@@ -66,6 +75,16 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => FormDosen(
                 // data: settings.arguments.toString(),
+                ));
+      case DETAIL_DOSEN:
+        return MaterialPageRoute(
+            builder: (_) => DetailDosen(
+                  id: settings.arguments.toString(),
+                ));
+      case DETAIL_MAHASISWA:
+        return MaterialPageRoute(
+            builder: (_) => DetailMahasiswa(
+                  id: settings.arguments.toString(),
                 ));
       default:
         return MaterialPageRoute(

@@ -1,9 +1,11 @@
+import 'package:appointment/models/prodiModel.dart';
 import 'package:appointment/routs.dart';
 import 'package:appointment/screens/details/components/config.dart';
 import 'package:flutter/material.dart';
 
 class ItemProdi extends StatefulWidget {
-  const ItemProdi({Key? key}) : super(key: key);
+  final ProdiModel? data;
+  const ItemProdi({Key? key, this.data}) : super(key: key);
 
   @override
   _ItemProdiState createState() => _ItemProdiState();
@@ -25,11 +27,10 @@ class _ItemProdiState extends State<ItemProdi> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Nama Prodi', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  
+                  Text(widget.data!.namaProdi!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ],
               ),
-              
+
               // Text('Keterangan'),
               // Text('Lorem Ipsum'),
               // SizedBox(

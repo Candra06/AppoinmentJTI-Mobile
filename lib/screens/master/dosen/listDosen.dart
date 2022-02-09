@@ -1,6 +1,8 @@
+import 'package:appointment/models/userModel.dart';
 import 'package:appointment/routs.dart';
 import 'package:appointment/screens/master/dosen/itemDosen.dart';
 import 'package:appointment/screens/master/mahasiswa/itemMahasiswa.dart';
+import 'package:appointment/service/user_repository.dart';
 import 'package:flutter/material.dart';
 
 class ListDosen extends StatefulWidget {
@@ -11,6 +13,27 @@ class ListDosen extends StatefulWidget {
 }
 
 class _ListDosenState extends State<ListDosen> {
+  Future<List<UserModel>>? listDosen;
+  UserRepository repository = UserRepository();
+  bool load = true;
+
+  void getData() async {
+    setState(() {
+      load = true;
+    });
+    listDosen = repository.listUser("3");
+
+    setState(() {
+      load = false;
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +53,31 @@ class _ListDosenState extends State<ListDosen> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        margin: EdgeInsets.all(16),
-        child: ListView.builder(itemBuilder: (BuildContext context, int i) {
-          return ItemDosen();
-        }),
-      ),
+      body: load
+          ? LinearProgressIndicator()
+          : FutureBuilder<List<UserModel>>(
+              future: listDosen,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return LinearProgressIndicator();
+                } else {
+                  return snapshot.hasData
+                      ? Container(
+                          margin: EdgeInsets.all(16),
+                          child: ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                return ItemDosen(
+                                  data: snapshot.data![i],
+                                );
+                              }),
+                        )
+                      : Center(
+                          child: Text('Tidak ada data dosen'),
+                        );
+                }
+              },
+            ),
     );
   }
 }
