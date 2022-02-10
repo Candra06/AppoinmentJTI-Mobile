@@ -17,19 +17,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
-    {
-      "text": "Selamat datang di Appoitment JTI!",
-      "image": "assets/images/splash_1.png"
-    },
-    {
-      "text": "Kita mengatur kebutuhan anda \ndalam lingkup JTI POLIJE!",
-      "image": "assets/images/splash_2.png"
-    },
-    {
-      "text":
-          "Kita memberikan kemudahan dalam sidang anda. \nHanya cukup membuka hp anda semua beres!",
-      "image": "assets/images/splash_3.png"
-    },
+    {"text": "Selamat datang di Appoitment JTI!", "image": "assets/images/splash_1.png"},
+    {"text": "Kita mengatur kebutuhan anda \ndalam lingkup JTI POLIJE!", "image": "assets/images/splash_2.png"},
+    {"text": "Kita memberikan kemudahan dalam sidang anda. \nHanya cukup membuka hp anda semua beres!", "image": "assets/images/splash_3.png"},
   ];
   @override
   Widget build(BuildContext context) {
@@ -71,10 +61,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     const Spacer(flex: 3),
-                    DefaultButton(
-                        text: "Continue",
-                        press: () => Navigator.pushReplacementNamed(
-                            context, SignInScreen.routeName)),
+                    DefaultButton(text: "Continue", press: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => SignInScreen()))),
                     const Spacer(),
                   ],
                 ),

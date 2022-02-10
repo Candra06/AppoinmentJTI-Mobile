@@ -12,9 +12,13 @@ class EventScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Membuat Jadwal"),
+        centerTitle: false,
+        title: const Text(
+          "Membuat Jadwal",
+          style: TextStyle(color: Colors.black),
+        ),
       ),
-      body: Body(),
+      body: AddEventScreen(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:appointment/screens/home/components/body.dart';
 import 'package:appointment/screens/master/dosen/listDosen.dart';
 import 'package:appointment/screens/master/mahasiswa/listMahasiswa.dart';
 import 'package:appointment/screens/master/prodi/prodi.dart';
+import 'package:appointment/screens/profil/profil_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,7 +21,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
     ListDosen(),
     ListMahasiswa(),
     ListProdi(),
-    HomeBodyMahasiswa(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

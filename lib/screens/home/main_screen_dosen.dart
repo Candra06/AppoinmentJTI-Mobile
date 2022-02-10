@@ -1,6 +1,8 @@
+import 'package:appointment/screens/chat_view/listTopik.dart';
 import 'package:appointment/screens/home/components/body.dart';
 import 'package:appointment/screens/jadwal/event_dosen.dart';
 import 'package:appointment/screens/jadwal/event_screen.dart';
+import 'package:appointment/screens/profil/profil_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenDosen extends StatefulWidget {
@@ -18,7 +20,8 @@ class _MainScreenDosenState extends State<MainScreenDosen> {
   static const List<Widget> _widgetOptions = <Widget>[
     EventScreenDosen(),
     HomeBodyMahasiswa(),
-    HomeBodyMahasiswa(),
+    ListTopicScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -41,7 +44,11 @@ class _MainScreenDosenState extends State<MainScreenDosen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            label: 'Pengajuan Jadwal',
+            label: 'Request Mahasiswa',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Chat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
@@ -49,6 +56,9 @@ class _MainScreenDosenState extends State<MainScreenDosen> {
           ),
         ],
         currentIndex: _selectedIndex,
+        // fixedColor: Colors.grey[450],
+        unselectedItemColor: Colors.black54,
+
         selectedItemColor: Colors.blue[900],
         onTap: _onItemTapped,
       ),

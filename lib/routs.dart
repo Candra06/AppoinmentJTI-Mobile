@@ -32,6 +32,8 @@ class Routes {
   static const String DETAIL_MAHASISWA = '/detail_mahasiswa';
   static const String ADD_MAHASISWA = '/add_mahasiswa';
   static const String ADD_DOSEN = '/add_dosen';
+  static const String ADD_EVENT = '/add_event_dosen';
+  static const String DETAIL_CHAT = '/detail_chat';
 
   static Route<dynamic>? generateRoute(RouteSettings? settings) {
     switch (settings!.name) {
@@ -40,6 +42,8 @@ class Routes {
             builder: (_) => JadwalScreen(
                   data: settings.arguments.toString(),
                 ));
+      case ADD_EVENT:
+        return MaterialPageRoute(builder: (_) => EventScreen());
       case LOGIN:
         return MaterialPageRoute(
             builder: (_) => SignInScreen(
@@ -52,7 +56,7 @@ class Routes {
                 ));
       case HOME_DOSEN:
         return MaterialPageRoute(
-            builder: (_) => MainScreenMahasiswa(
+            builder: (_) => MainScreenDosen(
                 // data: settings.arguments.toString(),
                 ));
       case HOME_ADMIN:
@@ -86,6 +90,11 @@ class Routes {
             builder: (_) => DetailMahasiswa(
                   id: settings.arguments.toString(),
                 ));
+      case DETAIL_CHAT:
+        return MaterialPageRoute(
+            builder: (_) => ChatViewScreen(
+                  idDetail: settings.arguments.toString(),
+                ));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -99,13 +108,12 @@ class Routes {
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
-  SignInScreen.routeName: (context) => SignInScreen(),
   SettingIpScreens.routeName: (context) => SettingIpScreens(),
   HomeScreen.routeName: (context) => HomeScreen(),
-  ProfilScreen.routeName: (context) => ProfilScreen(),
+  // ProfilScreen.routeName: (context) => ProfilScreen(),
   RequestScreen.routeName: (context) => RequestScreen(),
   ChatScreens.routeName: (context) => ChatScreens(),
-  ChatViewScreens.routeName: (context) => ChatViewScreens(),
+  // ChatViewScreens.routeName: (context) => ChatViewScreens(),
   UserView.routeName: (context) => UserView(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
   EventScreen.routeName: (context) => EventScreen(),

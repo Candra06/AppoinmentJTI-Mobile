@@ -12,8 +12,6 @@ class ProfilePic extends StatelessWidget {
 
   final String image;
 
-  
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -26,12 +24,9 @@ class ProfilePic extends StatelessWidget {
           CircleAvatar(
             backgroundImage: image == null
                 ? null
-                : NetworkImage(
-                    context.watch<ServiceProvider>().imageUrl.toString() +
-                                image ==
-                            null
-                        ? "default.png"
-                        : image),
+                : NetworkImage(context.watch<ServiceProvider>().imageUrl.toString() + image == null
+                    ? 'https://appointmentjti.waserdajaya.store/assets/img/profile/' + "default.png"
+                    : 'https://appointmentjti.waserdajaya.store/assets/img/profile/' + image),
           ),
           Positioned(
             right: -10,

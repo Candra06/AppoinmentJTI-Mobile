@@ -3,19 +3,24 @@ import 'package:flutter/material.dart';
 
 import 'components/body.dart';
 
-class ChatViewScreens extends StatelessWidget {
-  static String routeName = "/chatview";
+class ChatViewScreen extends StatefulWidget {
+  final String? idDetail;
+  const ChatViewScreen({Key? key, this.idDetail}) : super(key: key);
 
   @override
+  _ChatViewScreenState createState() => _ChatViewScreenState();
+}
+
+class _ChatViewScreenState extends State<ChatViewScreen> {
+  @override
   Widget build(BuildContext context) {
-    final DetailsArguments agrs =
-        ModalRoute.of(context)!.settings.arguments as DetailsArguments;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Nama User",
           style: TextStyle(
             fontSize: 20,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -27,16 +32,8 @@ class ChatViewScreens extends StatelessWidget {
         ],
       ),
       body: Body(
-        product: agrs.product.toString(),
-        id: agrs.id.toString(),
+        id: widget.idDetail,
       ),
     );
   }
-}
-
-class DetailsArguments {
-  final String product;
-  final String id;
-
-  DetailsArguments({required this.id, required this.product});
 }

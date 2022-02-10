@@ -1,5 +1,6 @@
 // ignore_for_file: implementation_imports
 import 'package:appointment/screens/sign_in/sign_in_screen.dart';
+import 'package:appointment/utill/preference.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants.dart';
@@ -66,7 +67,7 @@ class _BodyState extends State<Body> {
             text: 'Log Out',
             press: () {
               getLogOut();
-              Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => SignInScreen()));
             },
           ),
         ],
@@ -85,11 +86,12 @@ class _BodyState extends State<Body> {
 
   void getFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    String? tmpImage = await Pref.getFoto();
+    print(tmpImage);
     setState(() {
       _email = prefs.getString("email")!;
       _idrole = prefs.getString("id_role")!;
-      _image = prefs.getString("image")!;
+      _image = tmpImage!;
     });
   }
 }
@@ -115,8 +117,7 @@ class ProfileMenu extends StatelessWidget {
         onPressed: press,
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           padding: const EdgeInsets.all(20),
           primary: const Color(0xFFF5F6F9),
         ),

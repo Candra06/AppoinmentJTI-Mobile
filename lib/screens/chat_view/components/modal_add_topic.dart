@@ -1,39 +1,99 @@
 import 'package:appointment/constants.dart';
-import 'package:appointment/models/pengajuanModel.dart';
+import 'package:appointment/models/topicModel.dart';
+import 'package:appointment/models/userModel.dart';
 import 'package:appointment/routs.dart';
 import 'package:appointment/screens/details/components/config.dart';
-import 'package:appointment/service/pengajuan_repository.dart';
+import 'package:appointment/service/user_repository.dart';
 import 'package:appointment/utill/preference.dart';
 import 'package:flutter/material.dart';
 
-class ModalResponJadwal extends StatefulWidget {
-  final String? idJadwal;
-  const ModalResponJadwal({Key? key, this.idJadwal}) : super(key: key);
+class ModalAddTopic extends StatefulWidget {
+  const ModalAddTopic({Key? key}) : super(key: key);
 
   @override
-  _ModalResponJadwalState createState() => _ModalResponJadwalState();
+  _ModalAddTopicState createState() => _ModalAddTopicState();
 }
 
-class _ModalResponJadwalState extends State<ModalResponJadwal> {
-  PengajuanRepository repository = new PengajuanRepository();
-  void save(String status) async {
-    String id = widget.idJadwal!;
-    PengajuanModel event = new PengajuanModel();
+class _ModalAddTopicState extends State<ModalAddTopic> {
+  bool load = true;
+  UserRepository repository = new UserRepository();
 
-    event.message = txtAlasan!.text;
-    event.status = status;
+  String? valDosen;
+  List<Map<String, dynamic>> dosen = [];
+  void getData() async {
+    setState(() {
+      load = true;
+    });
+    List<UserModel> tmpDosen = await repository.listUser("3");
+    for (var i = 0; i < tmpDosen.length; i++) {
+      dosen.add({
+        "id": tmpDosen[i].idUser,
+        "name": tmpDosen[i].name,
+      });
+    }
+    setState(() {
+      load = false;
+    });
+  }
 
-    Map<String, dynamic>? respon = await repository.responJadwal(id, event);
-    print(respon);
+  TextEditingController? txtTopic = new TextEditingController();
+
+  selectDosen() {
+    return Container(
+      margin: EdgeInsets.only(top: 8, bottom: 10),
+      width: MediaQuery.of(context).size.width,
+      height: 65,
+      padding: EdgeInsets.fromLTRB(16, 9, 16, 10),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.black)),
+      child: DropdownButton(
+        underline: SizedBox(),
+        hint: Text(
+          "Pilih Dosen",
+          style: TextStyle(
+            color: Warna().kSecondaryColor,
+          ),
+        ),
+        isExpanded: true,
+        value: valDosen,
+        items: dosen.map((value) {
+          return DropdownMenuItem(
+            child: Text(value["name"]),
+            value: value["id"],
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            valDosen = value.toString();
+            print(valDosen);
+          });
+        },
+      ),
+    );
+  }
+
+  void saveTopic() async {
+    String id = await Pref.getIDUser();
+    TopicModel topic = new TopicModel();
+
+    topic.idUser = id;
+    topic.idDosen = valDosen;
+    topic.topic = txtTopic!.text;
+
+    Map<String, dynamic>? respon = await repository.postTopic(topic);
     if (respon!['status'] == true) {
       Config.alert(1, respon['message']);
-      Navigator.pushNamed(context, Routes.HOME_DOSEN);
+      Navigator.pushNamed(context, Routes.HOME_MAHASISWA);
     } else {
       Config.alert(1, respon['message']);
     }
   }
 
-  TextEditingController? txtAlasan = new TextEditingController();
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -56,7 +116,7 @@ class _ModalResponJadwalState extends State<ModalResponJadwal> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Respon Jadwal',
+                      'Tambah Topic',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -75,7 +135,9 @@ class _ModalResponJadwalState extends State<ModalResponJadwal> {
                 Divider(
                   height: 2,
                 ),
-                konstan.buildFormFieldMultiLine('Pesan', 'Masukkan alasan', txtAlasan, TextInputType.text),
+                selectDosen(),
+                SizedBox(height: 8),
+                buildFormField('Topic Pesan', 'Masukkan topic', txtTopic, TextInputType.text),
                 SizedBox(height: 8),
                 SizedBox(
                   height: 8,
@@ -84,25 +146,6 @@ class _ModalResponJadwalState extends State<ModalResponJadwal> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                        child: Container(
-                      margin: EdgeInsets.only(right: 4, top: 8),
-                      decoration: BoxDecoration(
-                        color: Warna().kDanger,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          save('reject');
-                        },
-                        child: Text(
-                          'Tolak',
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                      ),
-                    )),
                     Expanded(
                         child: Container(
                       margin: EdgeInsets.only(left: 4, top: 8),
@@ -114,10 +157,10 @@ class _ModalResponJadwalState extends State<ModalResponJadwal> {
                       ),
                       child: TextButton(
                         onPressed: () {
-                          save('accept');
+                          saveTopic();
                         },
                         child: Text(
-                          'Terima',
+                          'Kirim Topic',
                           style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),

@@ -21,7 +21,7 @@ class Warna {
   final defaultDuration = Duration(milliseconds: 250);
 }
 
-Widget buildFormField(String? label, String? hint, TextEditingController controller, TextInputType type) {
+Widget buildFormField(String? label, String? hint, TextEditingController? controller, TextInputType type) {
   return TextFormField(
     keyboardType: type,
     controller: controller,

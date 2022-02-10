@@ -15,9 +15,6 @@ class _ItemProdiState extends State<ItemProdi> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, Routes.DETAIL_JADWAL, arguments: '1');
-      },
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(8),

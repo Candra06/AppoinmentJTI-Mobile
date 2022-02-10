@@ -2,7 +2,8 @@ import 'package:appointment/constants.dart';
 import 'package:flutter/material.dart';
 
 class ModalBatalJadwal extends StatefulWidget {
-  const ModalBatalJadwal({Key? key}) : super(key: key);
+  final String? idJadwal;
+  const ModalBatalJadwal({Key? key, this.idJadwal}) : super(key: key);
 
   @override
   _ModalBatalJadwalState createState() => _ModalBatalJadwalState();

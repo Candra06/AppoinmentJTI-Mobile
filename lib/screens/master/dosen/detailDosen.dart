@@ -1,5 +1,6 @@
 import 'package:appointment/models/userModel.dart';
 import 'package:appointment/routs.dart';
+import 'package:appointment/screens/details/components/config.dart';
 import 'package:appointment/screens/master/dosen/itemDosen.dart';
 import 'package:appointment/screens/master/mahasiswa/itemMahasiswa.dart';
 import 'package:appointment/service/user_repository.dart';
@@ -17,6 +18,39 @@ class _DetailDosenState extends State<DetailDosen> {
   Future<UserModel?>? dataDosen;
   UserRepository repository = UserRepository();
   bool load = true;
+
+  void confirmDelete(String id) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: new Text("Konfirmasi Hapus"),
+            content: new Text("Apakah anda yakin ingin menghapus data?"),
+            actions: [
+              FlatButton(
+                  child: Text('Tutup'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+              FlatButton(
+                  child: Text('Konfirmasi'),
+                  onPressed: () {
+                    deleteData(id);
+                  })
+            ],
+          );
+        });
+  }
+
+  void deleteData(String id) async {
+    Map<String, dynamic>? response = await repository.deleteUser(id);
+    if (response!['status'] == true) {
+      Config.alert(1, 'Berhasil menghapus data');
+      Navigator.pushNamed(context, Routes.HOME_ADMIN);
+    } else {
+      Config.alert(0, 'Gagal menghapus data');
+    }
+  }
 
   void getData() async {
     setState(() {
@@ -48,7 +82,7 @@ class _DetailDosenState extends State<DetailDosen> {
               icon: Icon(Icons.edit)),
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.ADD_DOSEN);
+                confirmDelete(widget.id!);
               },
               icon: Icon(Icons.delete))
         ],

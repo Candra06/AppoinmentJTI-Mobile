@@ -1,6 +1,13 @@
 // ignore_for_file: non_constant_identifier_names, use_key_in_widget_constructors, avoid_returning_null_for_void, implementation_imports
 
 import 'package:appointment/components/costume_suffix_icon.dart';
+import 'package:appointment/models/pengajuanModel.dart';
+import 'package:appointment/models/userModel.dart';
+import 'package:appointment/routs.dart';
+import 'package:appointment/screens/details/components/config.dart';
+import 'package:appointment/service/pengajuan_repository.dart';
+import 'package:appointment/service/user_repository.dart';
+import 'package:appointment/utill/preference.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment/components/form_error.dart';
 
@@ -26,9 +33,15 @@ class _JadwalFormState extends State<JadwalForm> {
   TextEditingController? txtJamMulai = TextEditingController();
   TextEditingController? txtJamSelesai = TextEditingController();
   TextEditingController title = TextEditingController();
+  TextEditingController txtMessage = TextEditingController();
   TextEditingController? startDate = TextEditingController();
   bool remember = false;
   final List<String> errors = [];
+
+  UserRepository repository = new UserRepository();
+  PengajuanRepository repo = new PengajuanRepository();
+
+  bool load = true;
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
@@ -46,8 +59,45 @@ class _JadwalFormState extends State<JadwalForm> {
     }
   }
 
+  void getData() async {
+    setState(() {
+      load = true;
+    });
+    List<UserModel> tmpDosen = await repository.listUser("3");
+    for (var i = 0; i < tmpDosen.length; i++) {
+      dosen.add({
+        "id": tmpDosen[i].idUser,
+        "name": tmpDosen[i].name,
+      });
+    }
+    setState(() {
+      load = false;
+    });
+  }
+
+  void save() async {
+    String id = await Pref.getIDUser();
+    PengajuanModel event = new PengajuanModel();
+
+    event.title = title.text;
+    event.message = title.text;
+    event.idUser = id;
+    event.idDosen = valDosen;
+    event.startDate = startDate!.text + ' ' + txtJamMulai!.text;
+    event.endDate = endDate!.text + ' ' + txtJamSelesai!.text;
+
+    Map<String, dynamic>? respon = await repo.addEventMahasiswa(id, event);
+    if (respon!['status'] == true) {
+      Config.alert(1, respon['message']);
+      Navigator.pushNamed(context, Routes.HOME_MAHASISWA);
+    } else {
+      Config.alert(0, respon['message']);
+    }
+  }
+
   @override
   void initState() {
+    getData();
     endDate!.text = "";
     startDate!.text = "";
     super.initState();
@@ -55,57 +105,63 @@ class _JadwalFormState extends State<JadwalForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          buildFormField('Judul', 'Masukkan judul jadwal', title, TextInputType.text),
-          SizedBox(height: 10),
-          selectDosen(),
-          SizedBox(height: 10),
-          buildStartDateFormField(),
-          SizedBox(height: 10),
-          buildStartTimeFormField(),
-          SizedBox(height: 10),
-          buildEndDateFormField(),
-          SizedBox(height: 10),
-          buildEndTimeFormField(),
-          SizedBox(height: 10),
-          FormError(error: errors),
-          SizedBox(height: 40),
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Warna().kPrimaryColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              ),
-              onPressed: () {},
-              child: Text(
-                'Simpan',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-              ),
+    return load
+        ? CircularProgressIndicator()
+        : Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                buildFormField('Judul', 'Masukkan judul jadwal', title, TextInputType.text),
+                SizedBox(height: 10),
+                buildFormField('Pesan', 'Masukkan pesan', txtMessage, TextInputType.text),
+                SizedBox(height: 10),
+                selectDosen(),
+                SizedBox(height: 10),
+                buildStartDateFormField(),
+                SizedBox(height: 10),
+                buildStartTimeFormField(),
+                SizedBox(height: 10),
+                buildEndDateFormField(),
+                SizedBox(height: 10),
+                buildEndTimeFormField(),
+                SizedBox(height: 10),
+                FormError(error: errors),
+                SizedBox(height: 40),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Warna().kPrimaryColor,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    ),
+                    onPressed: () {
+                      save();
+                    },
+                    child: Text(
+                      'Simpan',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+                // DefaultButton(
+                //   text: "Simpan",
+                //   press: () {
+                //     // if (_formKey.currentState!.validate()) {
+                //     //   _formKey.currentState!.save();
+                //     //   // if all are valid then go to success screen
+                //     //   // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                //     //   context.read<ServiceProvider>().postRequest(title: titel!, endDate: endDate!.text, startDate: startDate!.text, dosen: startDate!.text);
+                //     //   Navigator.pop(context);
+                //     // }
+                //   },
+                // ),
+              ],
             ),
-          )
-          // DefaultButton(
-          //   text: "Simpan",
-          //   press: () {
-          //     // if (_formKey.currentState!.validate()) {
-          //     //   _formKey.currentState!.save();
-          //     //   // if all are valid then go to success screen
-          //     //   // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-          //     //   context.read<ServiceProvider>().postRequest(title: titel!, endDate: endDate!.text, startDate: startDate!.text, dosen: startDate!.text);
-          //     //   Navigator.pop(context);
-          //     // }
-          //   },
-          // ),
-        ],
-      ),
-    );
+          );
   }
 
   TextFormField buildStartDateFormField() {
@@ -211,7 +267,7 @@ class _JadwalFormState extends State<JadwalForm> {
         value: valDosen,
         items: dosen.map((value) {
           return DropdownMenuItem(
-            child: Text(value["nama"]),
+            child: Text(value["name"]),
             value: value["id"],
           );
         }).toList(),

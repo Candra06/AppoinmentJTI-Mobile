@@ -6,9 +6,14 @@ import 'package:flutter/material.dart';
 import '../../enums.dart';
 import 'components/body.dart';
 
-class ProfilScreen extends StatelessWidget {
-  static String routeName = "/profile";
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +22,6 @@ class ProfilScreen extends StatelessWidget {
         leading: const Center(),
       ),
       body: const Body(),
-      bottomNavigationBar: const CostumeBottomNavigationBar(
-        selectedMenu: MenuState.profile,
-      ),
     );
   }
 }

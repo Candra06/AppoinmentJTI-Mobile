@@ -14,14 +14,14 @@ class ItemChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        ChatViewScreens.routeName,
-        arguments: DetailsArguments(
-          id: data['id_user'],
-          product: data['id'],
-        ),
-      ),
+      // onTap: () => Navigator.pushNamed(
+      //   context,
+      //   ChatViewScreens.routeName,
+      //   arguments: DetailsArguments(
+      //     id: data['id_user'],
+      //     product: data['id'],
+      //   ),
+      // ),
       child: SizedBox(
         width: SizeConfig.screenWidth,
         child: Padding(

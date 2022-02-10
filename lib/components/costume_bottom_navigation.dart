@@ -55,13 +55,13 @@ class CostumeBottomNavigationBar extends StatelessWidget {
             //     color: MenuState.event == selectedMenu ? kPrimaryColor : inActiveIconColor,
             //   ),
             // ),
-            IconButton(
-              onPressed: () => MenuState.profile != selectedMenu ? Navigator.pushReplacementNamed(context, ProfilScreen.routeName) : null,
-              icon: Icon(
-                Icons.person_outline,
-                color: MenuState.profile == selectedMenu ? kPrimaryColor : inActiveIconColor,
-              ),
-            ),
+            // IconButton(
+            //   onPressed: () => MenuState.profile != selectedMenu ? Navigator.pushReplacementNamed(context, ProfilScreen.routeName) : null,
+            //   icon: Icon(
+            //     Icons.person_outline,
+            //     color: MenuState.profile == selectedMenu ? kPrimaryColor : inActiveIconColor,
+            //   ),
+            // ),
           ],
         ),
       ),

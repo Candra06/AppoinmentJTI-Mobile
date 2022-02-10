@@ -1,6 +1,9 @@
+import 'package:appointment/screens/chat_view/chat_view_screens.dart';
+import 'package:appointment/screens/chat_view/listTopik.dart';
 import 'package:appointment/screens/home/components/body.dart';
 import 'package:appointment/screens/jadwal/event_dosen.dart';
 import 'package:appointment/screens/jadwal/event_screen.dart';
+import 'package:appointment/screens/profil/profil_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenMahasiswa extends StatefulWidget {
@@ -17,7 +20,8 @@ class _MainScreenMahasiswaState extends State<MainScreenMahasiswa> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeBodyMahasiswa(),
     EventScreenDosen(),
-    HomeBodyMahasiswa(),
+    ListTopicScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -43,11 +47,18 @@ class _MainScreenMahasiswaState extends State<MainScreenMahasiswa> {
             label: 'Event Dosen',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Chat',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             label: 'Profil',
           ),
         ],
         currentIndex: _selectedIndex,
+        // fixedColor: Colors.grey[450],
+        unselectedItemColor: Colors.black54,
+
         selectedItemColor: Colors.blue[900],
         onTap: _onItemTapped,
       ),

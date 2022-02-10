@@ -7,26 +7,34 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'sign_up_form.dart';
 
-class Body extends StatelessWidget {
+class AddEventScreen extends StatefulWidget {
+  const AddEventScreen({Key? key}) : super(key: key);
+
+  @override
+  _AddEventScreenState createState() => _AddEventScreenState();
+}
+
+class _AddEventScreenState extends State<AddEventScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight! * 0.04), // 4%
+                SizedBox(height: 10), // 4%
                 Text(
                   "Selesaikan detail mu atau kembali degan tombol kembali",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
                 ),
-                SizedBox(height: SizeConfig.screenHeight! * 0.08),
-                SignUpForm(),
+                SizedBox(
+                  height: 16,
+                ),
+                AddEventDosen(),
                 SizedBox(height: SizeConfig.screenHeight! * 0.04),
                 Text(
                   'Untuk menyimpan click simpan jika kamu sudah selesai',

@@ -11,8 +11,7 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
@@ -38,23 +37,6 @@ class Body extends StatelessWidget {
                 const SignInForm(),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.08,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocialCard(
-                      icon: Icons.electrical_services,
-                      press: () {},
-                    ),
-                    SocialCard(
-                      icon: Icons.computer_outlined,
-                      press: () {},
-                    ),
-                    SocialCard(
-                      icon: Icons.stay_primary_portrait,
-                      press: () {},
-                    ),
-                  ],
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(25),
