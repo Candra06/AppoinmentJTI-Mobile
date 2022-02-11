@@ -10,10 +10,14 @@ class EndPoint {
   static String detailUser = api + 'user/detail/';
   static String postUser = api + 'user/save/';
   static String deleteUser = api + 'user/delete/';
+  static String updateUser = api + '/user/update/';
 
   //prodi
   static String listProdi = api + 'prodi';
   static String postProdi = api + 'prodi/save/';
+  static String updateProdi = api + 'prodi/update/';
+  static String deleteProdi = api + 'prodi/delete/';
+  static String detailProdi = api + 'prodi/detail/';
 
   // event dosen
   static String listEvent = api + 'dosen/event/';

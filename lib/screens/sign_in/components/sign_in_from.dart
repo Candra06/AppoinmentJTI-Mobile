@@ -36,15 +36,15 @@ class _SignInFormState extends State<SignInForm> {
         children: [
           builEmailFormField(),
           SizedBox(
-            height: getProportionateScreenWidth(20),
+            height: 20,
           ),
           builPasswordFormField(),
           SizedBox(
-            height: getProportionateScreenWidth(20),
+            height: 20,
           ),
           FormError(error: error),
           SizedBox(
-            height: getProportionateScreenWidth(20),
+            height: 20,
           ),
           DefaultButton(
             text: "Continue",

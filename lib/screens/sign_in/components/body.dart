@@ -11,19 +11,19 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: SizeConfig.screenHeight! * 0.08,
+                  height: 20,
                 ),
                 Text(
                   "Welcome Back",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -32,14 +32,14 @@ class Body extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: SizeConfig.screenHeight! * 0.08,
+                  height: 20,
                 ),
                 const SignInForm(),
                 SizedBox(
-                  height: SizeConfig.screenHeight! * 0.08,
+                  height: 20,
                 ),
                 SizedBox(
-                  height: getProportionateScreenHeight(25),
+                  height: 25,
                 ),
               ],
             ),

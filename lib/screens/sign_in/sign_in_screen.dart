@@ -6,14 +6,13 @@ import 'package:flutter/material.dart';
 import 'components/body.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({ Key? key }) : super(key: key);
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
@@ -37,14 +36,12 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text("Sign In"),
       ),
-      body:WillPopScope(child:  Body(), onWillPop: _onWillPop),
+      body: WillPopScope(child: const Body(), onWillPop: _onWillPop),
     );
   }
 }
-

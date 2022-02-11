@@ -30,7 +30,13 @@ class _ItemMahasiswaState extends State<ItemMahasiswa> {
                   Text(widget.data!.nipNim!),
                 ],
               ),
-              Text(widget.data!.email!),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(widget.data!.email!),
+                  Text(widget.data!.namaProdi!),
+                ],
+              ),
 
               // Text('Keterangan'),
               // Text('Lorem Ipsum'),

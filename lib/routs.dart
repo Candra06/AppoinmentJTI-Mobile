@@ -73,7 +73,7 @@ class Routes {
       case ADD_MAHASISWA:
         return MaterialPageRoute(
             builder: (_) => FormMahasiswa(
-                // data: settings.arguments.toString(),
+                  id: settings.arguments.toString(),
                 ));
       case ADD_DOSEN:
         return MaterialPageRoute(
@@ -91,9 +91,12 @@ class Routes {
                   id: settings.arguments.toString(),
                 ));
       case DETAIL_CHAT:
+        var args = settings.arguments as Map;
+
         return MaterialPageRoute(
             builder: (_) => ChatViewScreen(
-                  idDetail: settings.arguments.toString(),
+                  idDetail: args['id'],
+                  nama: args['nama'],
                 ));
       default:
         return MaterialPageRoute(

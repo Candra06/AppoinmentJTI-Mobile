@@ -35,6 +35,7 @@ class _ItemDosenState extends State<ItemDosen> {
                 style: TextStyle(color: Colors.grey),
               ),
               Text(widget.data!.nipNim!),
+              Text(widget.data!.namaProdi!),
 
               // Text('Keterangan'),
               // Text('Lorem Ipsum'),

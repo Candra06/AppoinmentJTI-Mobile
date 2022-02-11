@@ -93,7 +93,8 @@ class _ListTopicScreenState extends State<ListTopicScreen> {
                             print(snapshot.data![i]);
                             return InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, Routes.DETAIL_CHAT, arguments: snapshot.data![i].id);
+                                var data = {'nama': snapshot.data![i].name!, 'id': snapshot.data![i].id!};
+                                Navigator.pushNamed(context, Routes.DETAIL_CHAT, arguments: data);
                               },
                               child: Card(
                                 child: Padding(

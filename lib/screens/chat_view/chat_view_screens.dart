@@ -5,7 +5,8 @@ import 'components/body.dart';
 
 class ChatViewScreen extends StatefulWidget {
   final String? idDetail;
-  const ChatViewScreen({Key? key, this.idDetail}) : super(key: key);
+  final String? nama;
+  const ChatViewScreen({Key? key, this.idDetail, this.nama}) : super(key: key);
 
   @override
   _ChatViewScreenState createState() => _ChatViewScreenState();
@@ -16,8 +17,8 @@ class _ChatViewScreenState extends State<ChatViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Nama User",
+        title: Text(
+          widget.nama!,
           style: TextStyle(
             fontSize: 20,
             color: Colors.black,

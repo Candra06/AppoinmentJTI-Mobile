@@ -67,40 +67,45 @@ class _BodyState extends State<Body> {
       clipBehavior: Clip.none,
       children: [
         Positioned(
-            top: 0,
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight,
-            child: FutureBuilder<List<ReplyModel>>(
-              future: listReply,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return snapshot.hasData
-                      ? ListChat(
-                          data: snapshot.data!,
-                          idUser: idUser,
-                        )
-                      : Container();
-                }
-              },
+            top: 1,
+            bottom: 75,
+            left: 5,
+            right: 5,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: FutureBuilder<List<ReplyModel>>(
+                future: listReply,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return snapshot.hasData
+                        ? ListChat(
+                            data: snapshot.data!,
+                            idUser: idUser,
+                          )
+                        : Container();
+                  }
+                },
+              ),
             )),
         Positioned(
           top: 0,
-          width: SizeConfig.screenWidth,
-          height: SizeConfig.screenHeight,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Center(
             child: Text(""),
           ),
         ),
         Positioned(
           bottom: 0,
-          width: SizeConfig.screenWidth,
-          height: SizeConfig.screenWidth! / 4.5,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.width / 4.5,
           child: Container(
-            margin: EdgeInsets.all(getProportionateScreenWidth(15)),
+            margin: EdgeInsets.all(15),
             width: SizeConfig.screenWidth,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -123,8 +128,8 @@ class _BodyState extends State<Body> {
                     },
                     icon: const Icon(Icons.arrow_forward_ios_outlined)),
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20),
-                  vertical: getProportionateScreenWidth(9),
+                  horizontal: 20,
+                  vertical: 9,
                 ),
               ),
             ),
@@ -146,45 +151,50 @@ class ListChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: data.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          decoration: BoxDecoration(color: data[index].fromBy == idUser ? Colors.blueAccent : Colors.grey[300], borderRadius: BorderRadius.all(Radius.circular(10))),
-          padding: EdgeInsets.all(8),
-          margin: EdgeInsets.fromLTRB(16, 5, 16, 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                      child: Text(
-                    // data[index].me,
-                    data[index].message!,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: data[index].fromBy == idUser ? Colors.white : Colors.black,
-                      fontWeight: FontWeight.w100,
+    return Container(
+      height: double.maxFinite,
+      child: ListView.builder(
+        itemCount: data.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            decoration: BoxDecoration(color: data[index].fromBy == idUser ? Colors.blueAccent : Colors.grey[300], borderRadius: BorderRadius.all(Radius.circular(10))),
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.fromLTRB(16, 5, 16, 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                        child: Text(
+                      // data[index].me,
+                      data[index].message!,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: data[index].fromBy == idUser ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    )),
+                    SizedBox(width: 25),
+                    Text(
+                      Config.formatDateChat(data[index].updateTime.toString()),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: data[index].fromBy == idUser ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  )),
-                  SizedBox(width: getProportionateScreenWidth(25)),
-                  Text(
-                    Config.formatDateChat(data[index].updateTime.toString()),
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: data[index].fromBy == idUser ? Colors.white : Colors.black,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        );
-      },
+                  ],
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

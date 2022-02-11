@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:appointment/constants.dart';
 import 'package:appointment/models/prodiModel.dart';
 import 'package:appointment/models/userModel.dart';
 import 'package:appointment/routs.dart';
 import 'package:appointment/screens/details/components/config.dart';
 import 'package:appointment/service/user_repository.dart';
+import 'package:appointment/utill/network.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class FormMahasiswa extends StatefulWidget {
-  const FormMahasiswa({Key? key}) : super(key: key);
+  final String? id;
+  const FormMahasiswa({Key? key, this.id}) : super(key: key);
 
   @override
   _FormMahasiswaState createState() => _FormMahasiswaState();
@@ -21,6 +26,7 @@ class _FormMahasiswaState extends State<FormMahasiswa> {
   String? valProdi;
   List<Map<String, dynamic>> prodi = [];
   bool load = true;
+  String? password;
 
   UserRepository repository = new UserRepository();
 
@@ -92,9 +98,51 @@ class _FormMahasiswaState extends State<FormMahasiswa> {
     );
   }
 
+  void getDetail() async {
+    setState(() {
+      load = true;
+    });
+    http.Response req = await http.get(Uri.parse(EndPoint.detailUser + widget.id!));
+    var data = json.decode(req.body);
+    model = UserModel.fromJson(data['data']);
+    txtName.text = model.name!;
+    txtEmail.text = model.email!;
+    txtNIM.text = model.nipNim!;
+    valProdi = model.idProdi!;
+    password = model.password!;
+
+    setState(() {
+      load = false;
+    });
+  }
+
+  void updateUser() async {
+    model.name = txtName.text;
+    model.nipNim = txtNIM.text;
+    model.idRole = '3';
+    model.email = txtEmail.text;
+    model.idProdi = valProdi;
+    if (txtPassword.text.isEmpty) {
+      model.password = password;
+    } else {
+      model.password = txtPassword.text;
+    }
+
+    Map<String, dynamic>? respon = await repository.updateUser(model, widget.id!);
+    if (respon!['status'] == true) {
+      Config.alert(1, respon['message']);
+      Navigator.pushNamed(context, Routes.HOME_ADMIN);
+    } else {
+      Config.alert(1, respon['message']);
+    }
+  }
+
   @override
   void initState() {
     getData();
+    if (widget.id != '0') {
+      getDetail();
+    }
     super.initState();
   }
 
@@ -106,7 +154,7 @@ class _FormMahasiswaState extends State<FormMahasiswa> {
         // automaticallyImplyLeading: false,
 
         title: Text(
-          'Data Mahasiswa',
+          widget.id! == '0' ? 'Tambah Mahasiswa' : 'Edit Mahasiswa',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -178,17 +226,19 @@ class _FormMahasiswaState extends State<FormMahasiswa> {
                         ),
                         onPressed: () {
                           if (txtName.text.isEmpty) {
-                            print('nama tidak boleh kosong');
+                            Config.alert(0, 'nama tidak boleh kosong');
                           } else if (txtEmail.text.isEmpty) {
-                            print('email tidak boleh kosong');
-                          } else if (txtPassword.text.isEmpty) {
-                            print('password tidak boleh kosong');
+                            Config.alert(0, 'email tidak boleh kosong');
                           } else if (txtNIM.text.isEmpty) {
-                            print('nim tidak boleh kosong');
+                            Config.alert(0, 'nim tidak boleh kosong');
                           } else if (valProdi == Null) {
-                            print('prodi tidak boleh kosong');
+                            Config.alert(0, 'prodi tidak boleh kosong');
                           } else {
-                            saveUser();
+                            if (widget.id != '0') {
+                              updateUser();
+                            } else {
+                              saveUser();
+                            }
                           }
                         },
                         child: Text(

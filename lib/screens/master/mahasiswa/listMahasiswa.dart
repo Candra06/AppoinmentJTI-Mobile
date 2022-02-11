@@ -42,7 +42,7 @@ class _ListMahasiswaState extends State<ListMahasiswa> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.ADD_MAHASISWA);
+                Navigator.pushNamed(context, Routes.ADD_MAHASISWA, arguments: '0');
               },
               icon: Icon(Icons.add))
         ],

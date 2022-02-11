@@ -75,7 +75,7 @@ class _DetailMahasiswaState extends State<DetailMahasiswa> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.ADD_DOSEN);
+                Navigator.pushNamed(context, Routes.ADD_MAHASISWA, arguments: widget.id);
               },
               icon: Icon(Icons.edit)),
           IconButton(

@@ -1,7 +1,9 @@
 import 'package:appointment/models/prodiModel.dart';
 import 'package:appointment/routs.dart';
+import 'package:appointment/screens/details/components/config.dart';
 import 'package:appointment/screens/master/mahasiswa/itemMahasiswa.dart';
 import 'package:appointment/screens/master/prodi/itemProdi.dart';
+import 'package:appointment/screens/master/prodi/modal_add_prodi.dart';
 import 'package:appointment/service/user_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +15,24 @@ class ListProdi extends StatefulWidget {
 }
 
 class _ListProdiState extends State<ListProdi> {
-   Future<List<ProdiModel>>? listProdi;
+  Future<List<ProdiModel>>? listProdi;
   UserRepository repository = UserRepository();
   bool load = true;
+
+  void _addProdi(String id, String nama) async {
+    await showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (builder) {
+          return ModalAddProdi(
+            idProdi: id,
+            namaProdi: nama,
+          );
+        });
+  }
 
   void getData() async {
     setState(() {
@@ -33,6 +50,7 @@ class _ListProdiState extends State<ListProdi> {
     getData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +60,7 @@ class _ListProdiState extends State<ListProdi> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.JADWAL_DOSEN);
+                _addProdi('0', '-');
               },
               icon: Icon(Icons.add))
         ],
