@@ -43,7 +43,7 @@ class _ListDosenState extends State<ListDosen> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.ADD_DOSEN);
+                Navigator.pushNamed(context, Routes.ADD_DOSEN, arguments: '0');
               },
               icon: Icon(Icons.add))
         ],

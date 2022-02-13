@@ -78,7 +78,8 @@ class Routes {
       case ADD_DOSEN:
         return MaterialPageRoute(
             builder: (_) => FormDosen(
-                // data: settings.arguments.toString(),
+                  id: settings.arguments.toString(),
+                  // data: settings.arguments.toString(),
                 ));
       case DETAIL_DOSEN:
         return MaterialPageRoute(

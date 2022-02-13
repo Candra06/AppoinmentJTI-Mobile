@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:appointment/constants.dart';
 import 'package:appointment/models/prodiModel.dart';
 import 'package:appointment/models/userModel.dart';
 import 'package:appointment/routs.dart';
 import 'package:appointment/screens/details/components/config.dart';
 import 'package:appointment/service/user_repository.dart';
+import 'package:appointment/utill/network.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class FormDosen extends StatefulWidget {
-  const FormDosen({Key? key}) : super(key: key);
+  final String? id;
+  const FormDosen({Key? key, this.id}) : super(key: key);
 
   @override
   _FormDosenState createState() => _FormDosenState();
@@ -20,6 +25,7 @@ class _FormDosenState extends State<FormDosen> {
   TextEditingController txtEmail = new TextEditingController();
   TextEditingController txtPassword = new TextEditingController();
   String? valProdi, valRole;
+  String? password;
   List<Map<String, dynamic>> prodi = [];
   List<Map<String, dynamic>> role = [];
   bool load = true;
@@ -29,19 +35,23 @@ class _FormDosenState extends State<FormDosen> {
   UserModel model = new UserModel();
 
   void saveUser() async {
-    model.name = txtName.text;
-    model.nipNim = txtNIM.text;
-    model.idRole = '3';
-    model.email = txtEmail.text;
-    model.password = txtPassword.text;
-    model.idProdi = valProdi;
-
-    Map<String, dynamic>? respon = await repository.postUser(model);
-    if (respon!['status'] == true) {
-      Config.alert(1, respon['message']);
-      Navigator.pushNamed(context, Routes.HOME_ADMIN);
+    if (txtPassword.text.isEmpty) {
+      Config.alert(0, 'Password tidak boleh kosong');
     } else {
-      Config.alert(1, respon['message']);
+      model.name = txtName.text;
+      model.nipNim = txtNIM.text;
+      model.idRole = '2';
+      model.email = txtEmail.text;
+      model.password = txtPassword.text;
+      model.idProdi = valProdi;
+
+      Map<String, dynamic>? respon = await repository.postUser(model);
+      if (respon!['status'] == true) {
+        Config.alert(1, respon['message']);
+        Navigator.pushNamed(context, Routes.HOME_ADMIN);
+      } else {
+        Config.alert(1, respon['message']);
+      }
     }
   }
 
@@ -49,6 +59,9 @@ class _FormDosenState extends State<FormDosen> {
     setState(() {
       load = true;
     });
+    if (widget.id != '0') {
+      getDetail();
+    }
     List<ProdiModel> tmpProdi = await repository.listProdi();
     for (var i = 0; i < tmpProdi.length; i++) {
       prodi.add({
@@ -94,9 +107,49 @@ class _FormDosenState extends State<FormDosen> {
     );
   }
 
+  void getDetail() async {
+    setState(() {
+      load = true;
+    });
+    http.Response req = await http.get(Uri.parse(EndPoint.detailUser + widget.id!));
+    var data = json.decode(req.body);
+    model = UserModel.fromJson(data['data']);
+    txtName.text = model.name!;
+    txtEmail.text = model.email!;
+    txtNIM.text = model.nipNim!;
+    valProdi = model.idProdi!;
+    password = model.password!;
+
+    setState(() {
+      load = false;
+    });
+  }
+
+  void updateUser() async {
+    model.name = txtName.text;
+    model.nipNim = txtNIM.text;
+    model.idRole = '3';
+    model.email = txtEmail.text;
+    model.idProdi = valProdi;
+    if (txtPassword.text.isEmpty) {
+      model.password = password;
+    } else {
+      model.password = txtPassword.text;
+    }
+
+    Map<String, dynamic>? respon = await repository.updateUser(model, widget.id!);
+    if (respon!['status'] == true) {
+      Config.alert(1, respon['message']);
+      Navigator.pushNamed(context, Routes.HOME_ADMIN);
+    } else {
+      Config.alert(1, respon['message']);
+    }
+  }
+
   @override
   void initState() {
     getData();
+
     super.initState();
   }
 
@@ -108,7 +161,7 @@ class _FormDosenState extends State<FormDosen> {
         // automaticallyImplyLeading: false,
 
         title: Text(
-          'Data Dosen',
+          widget.id! == '0' ? 'Tambah Dosen' : 'Edit Dosen',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -183,14 +236,16 @@ class _FormDosenState extends State<FormDosen> {
                         print('nama tidak boleh kosong');
                       } else if (txtEmail.text.isEmpty) {
                         print('email tidak boleh kosong');
-                      } else if (txtPassword.text.isEmpty) {
-                        print('password tidak boleh kosong');
                       } else if (txtNIM.text.isEmpty) {
                         print('nim tidak boleh kosong');
                       } else if (valProdi == Null) {
                         print('prodi tidak boleh kosong');
                       } else {
-                        saveUser();
+                        if (widget.id != '0') {
+                          updateUser();
+                        } else {
+                          saveUser();
+                        }
                       }
                     },
                     child: Text(
