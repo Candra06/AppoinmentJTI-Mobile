@@ -153,7 +153,7 @@ class UserRepository {
     Map<dynamic, dynamic> body = {'id': idChat};
     http.Response req = await http.post(Uri.parse(EndPoint.detailChat), body: body);
     var data = json.decode(req.body);
-
+    print(req.body);
     if (data['status'] == true) {
       List<dynamic> list = data['data'];
 

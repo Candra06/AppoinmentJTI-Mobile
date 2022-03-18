@@ -92,7 +92,15 @@ class _DetailJadwalState extends State<DetailJadwal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+            onPressed: () {
+              if (role == '2') {
+                Navigator.pushNamed(context, Routes.HOME_DOSEN);
+              } else {
+                Navigator.pushNamed(context, Routes.HOME_MAHASISWA);
+              }
+            },
+            icon: Icon(Icons.arrow_back)),
         centerTitle: false,
         title: Text(
           'Detail Jadwal',

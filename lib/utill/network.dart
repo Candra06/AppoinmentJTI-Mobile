@@ -1,5 +1,5 @@
 class EndPoint {
-  static String server = 'https://appointmentjti.waserdajaya.store/';
+  static String server = 'https://ta-mifpolije.com/E31180539/';
   static String api = server + 'api/';
 
   //auth

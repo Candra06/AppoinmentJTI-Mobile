@@ -80,7 +80,7 @@ class _JadwalFormState extends State<JadwalForm> {
     PengajuanModel event = new PengajuanModel();
 
     event.title = title.text;
-    event.message = title.text;
+    event.message = txtMessage.text;
     event.idUser = id;
     event.idDosen = valDosen;
     event.startDate = startDate!.text + ' ' + txtJamMulai!.text;
